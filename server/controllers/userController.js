@@ -3,6 +3,7 @@ import { User } from "../models/userSchema.js";
 import ErrorHandler from "../middlewares/error.js";
 import { sendToken } from "../utils/jwtToken.js";
 
+// Register User
 export const register = catchAsyncErrors(async (req, res, next) => {
   const { name, email, phone, password, role } = req.body;
   if (!name || !email || !phone || !password || !role) {
@@ -22,10 +23,11 @@ export const register = catchAsyncErrors(async (req, res, next) => {
   sendToken(user, 201, res, "User Registered!");
 });
 
+// Login User
 export const login = catchAsyncErrors(async (req, res, next) => {
   const { email, password, role } = req.body;
   if (!email || !password || !role) {
-    return next(new ErrorHandler("Please provide email ,password and role."));
+    return next(new ErrorHandler("Please provide email, password and role."));
   }
   const user = await User.findOne({ email }).select("+password");
   if (!user) {
@@ -43,6 +45,7 @@ export const login = catchAsyncErrors(async (req, res, next) => {
   sendToken(user, 201, res, "User Logged In!");
 });
 
+// Logout User
 export const logout = catchAsyncErrors(async (req, res, next) => {
   res
     .status(201)
@@ -56,11 +59,30 @@ export const logout = catchAsyncErrors(async (req, res, next) => {
     });
 });
 
-
+// Get the Logged-in User Data
 export const getUser = catchAsyncErrors((req, res, next) => {
   const user = req.user;
   res.status(200).json({
     success: true,
     user,
   });
+});
+
+// Admin Controller to Get All Users
+export const getAllUsers = catchAsyncErrors(async (req, res, next) => {
+  // Check if user is admin
+  if (req.user.role !== 'admin') {
+    return next(new ErrorHandler("You do not have permission to view all users.", 403));
+  }
+
+  try {
+    // Fetch all users
+    const users = await User.find();
+    res.status(200).json({
+      success: true,
+      users,
+    });
+  } catch (error) {
+    return next(new ErrorHandler("Failed to fetch users.", 500));
+  }
 });

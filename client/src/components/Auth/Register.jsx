@@ -62,8 +62,9 @@ const Register = () => {
               <div>
                 <select value={role} onChange={(e) => setRole(e.target.value)}>
                   <option value="">Select Role</option>
-                  <option value="Employer">Employer</option>
+                  <option value="Emplosyer">Employer</option>
                   <option value="Job Seeker">Job Seeker</option>
+                  <option value="Admin">Admin</option>
                 </select>
                 <FaRegUser />
               </div>
@@ -73,7 +74,7 @@ const Register = () => {
               <div>
                 <input
                   type="text"
-                  placeholder="Zeeshan"
+                  placeholder="jabbar"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -85,7 +86,7 @@ const Register = () => {
               <div>
                 <input
                   type="email"
-                  placeholder="zk@gmail.com"
+               placeholder="dummy@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />

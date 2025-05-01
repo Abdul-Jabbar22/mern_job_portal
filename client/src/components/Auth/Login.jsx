@@ -55,6 +55,7 @@ const Login = () => {
               <div>
                 <select value={role} onChange={(e) => setRole(e.target.value)}>
                   <option value="">Select Role</option>
+                  <option value="Admin">Admin</option>
                   <option value="Employer">Employer</option>
                   <option value="Job Seeker">Job Seeker</option>
                 </select>
@@ -66,7 +67,7 @@ const Login = () => {
               <div>
                 <input
                   type="email"
-                  placeholder="zk@gmail.com"
+                  placeholder="dummy@gmail.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />

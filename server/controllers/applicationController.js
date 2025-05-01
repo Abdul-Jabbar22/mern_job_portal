@@ -9,7 +9,7 @@ import cloudinary from "cloudinary";
 // this is postAppliction function which is used to post the application by the job seeker 
 export const postApplication = catchAsyncErrors(async (req, res, next) => {
   const { role } = req.user;
-  if (role === "Employer") {
+  if (role === "Employer" || role === "Admin") {
     return next(
       new ErrorHandler("Employer not allowed to access this resource.", 400)
     );

@@ -27,6 +27,8 @@ const JobDetails = () => {
     navigateTo("/login");
   }
 
+  console.log(">>>>",job);
+  
   return (
     <section className="jobDetail page">
       <div className="container">
