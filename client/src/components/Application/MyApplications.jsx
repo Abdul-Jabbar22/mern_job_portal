@@ -15,28 +15,30 @@ const MyApplications = () => {
   const navigateTo = useNavigate();
 
   useEffect(() => {
-    try {
-      if (user && user.role === "Employer") {
-        axios
-          .get("http://localhost:4000/api/v1/application/employer/getall", {
-            withCredentials: true,
-          })
-          .then((res) => {
-            setApplications(res.data.applications);
-          });
-      } else {
-        axios
-          .get("http://localhost:4000/api/v1/application/jobseeker/getall", {
-            withCredentials: true,
-          })
-          .then((res) => {
-            setApplications(res.data.applications);
-          });
+    const fetchApplications = async () => {
+      try {
+        if (user && user.role === "Employer") {
+          const res = await axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/application/employer/getall`,
+            { withCredentials: true }
+          );
+          setApplications(res.data.applications);
+        } else {
+          const res = await axios.get(
+            `${process.env.REACT_APP_BACKEND_URL}/application/jobseeker/getall`,
+            { withCredentials: true }
+          );
+          setApplications(res.data.applications);
+        }
+      } catch (error) {
+        toast.error(
+          error.response?.data?.message || "Error fetching applications"
+        );
       }
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  }, [isAuthorized]);
+    };
+
+    fetchApplications();
+  }, [isAuthorized, user?.role]);
 
   if (!isAuthorized) {
     navigateTo("/");
@@ -45,9 +47,12 @@ const MyApplications = () => {
   const deleteApplication = (id) => {
     try {
       axios
-        .delete(`http://localhost:4000/api/v1/application/delete/${id}`, {
-          withCredentials: true,
-        })
+        .delete(
+          `${process.env.REACT_APP_BACKEND_URL}/application/delete/${id}`,
+          {
+            withCredentials: true,
+          }
+        )
         .then((res) => {
           toast.success(res.data.message);
           setApplications((prevApplication) =>
