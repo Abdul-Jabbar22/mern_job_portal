@@ -15,7 +15,7 @@ config({ path: "./config/config.env" });
 app.use(
   cors({
     origin: [
-    'https://your-frontend.vercel.app',
+    'https://mern-job-portal-ezey.vercel.app/',
     'http://localhost:3000'
   ],
     method: ["GET", "POST", "DELETE", "PUT"],
