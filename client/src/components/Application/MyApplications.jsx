@@ -17,7 +17,7 @@ const MyApplications = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        if (user && user.role === "Employer") {
+        if (user && user?.role === "Employer") {
           const res = await axios.get(
             `${process.env.REACT_APP_BACKEND_URL}/application/employer/getall`,
             { withCredentials: true }
@@ -75,7 +75,7 @@ const MyApplications = () => {
 
   return (
     <section className="my_applications page">
-      {user && user.role === "Job Seeker" ? (
+      {user && user?.role === "Job Seeker" ? (
         <div className="container">
           <h1>My Applications</h1>
           {applications.length <= 0 ? (

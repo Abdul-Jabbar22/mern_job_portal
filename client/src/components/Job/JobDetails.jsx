@@ -65,7 +65,7 @@ const JobDetails = () => {
               </span>
             )}
           </p>
-          {user && user.role === "Employer" ? (
+          {user && user?.role === "Employer" ? (
             <></>
           ) : (
             <Link to={`/application/${job._id}`}>Apply Now</Link>
