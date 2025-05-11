@@ -14,7 +14,10 @@ config({ path: "./config/config.env" });
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+    'https://your-frontend.vercel.app',
+    'http://localhost:3000'
+  ],
     method: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })
