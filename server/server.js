@@ -8,6 +8,7 @@ cloudinary.v2.config({
 });
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  app.use(express.static(path.join(__dirname, '../client/build')));
 });
 app.listen(process.env.PORT, () => {
   console.log(`Server running at port ${process.env.PORT}`);
